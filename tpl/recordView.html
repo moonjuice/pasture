@@ -1,0 +1,49 @@
+<div class="row">
+	<form class="form-horizontal span12">
+		<fieldset>
+			<legend>record Detail</legend>
+			<br/>
+			<div class="row">
+				<div class="span9">
+					<div class="control-group">
+						<label for="rid" class="control-label">序號:</label>
+						<div class="controls">
+							<input type="text" id="rid" name="rid" value="<%= rid %>" readonly="readonly" class="data-field"/>
+						</div>
+					</div>
+					<div class="control-group">
+						<label for="cid" class="control-label">乳牛ID:</label>
+						<div class="controls">
+							<input type="text" id="cid" name="cid" value="<%= cid %>" class="data-field" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label for="content" class="control-label">內容:</label>
+						<div class="controls">
+							<textarea id="content" name="content" cols=50 rows=5 class="data-field"><%= content %></textarea>
+						</div>
+					</div>
+					<div class="control-group">
+						<label for="createdate" class="control-label">建立日期:</label>
+						<div class="controls">
+							<input type="text" id="createdate" name="createdate" value="<%= createdate %>" class="datepicker data-field" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+		<div class="form-actions">
+			<a href="#records" class="btn"><i class="icon-arrow-left"></i>回到列表</a>
+			<a href="#" class="btn btn-primary save">儲存</a>
+			<a href="#" class="btn delete">刪除</a>
+		</div>
+	</form>
+</div>
+
+<div class="row status-bar">
+	<div class="span12">
+		<div class="alert alert-success" style="display: none">
+			<b>Success!</b> record saved successfully
+		</div>
+	</div>
+</div>
