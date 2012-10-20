@@ -70,6 +70,7 @@ window.cowModel = Backbone.Model.extend({
 	        else
 	            return { isValid: false, message: msg };
 	    };
+        /*
 	    this.validators.esDay = function (value) {
 	        var flag = true;
 	        var msg = '';
@@ -86,6 +87,7 @@ window.cowModel = Backbone.Model.extend({
 	        else
 	            return { isValid: false, message: msg };
 	    };
+        */
 	    this.validators.esStatus = function (value) {
 	        var flag = true;
 	        var msg = '';
@@ -135,7 +137,7 @@ window.cowModel = Backbone.Model.extend({
 	    motherID: '',
 	    birthDay: '',
 	    esDay: '',
-	    esStatus: '',
+	    esStatus: 'N',
 	    remark: ''
 	}
 });
