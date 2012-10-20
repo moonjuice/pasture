@@ -86,7 +86,9 @@ window.cowView = Backbone.View.extend({
             //            changeYear: true,
             dateFormat: 'yy-mm-dd',
             onSelect: function(date) {
-                //alert(this.);
+                var controlGroup = $(this).parent().parent();
+                controlGroup.removeClass('error');
+                controlGroup.find(".help-inline").remove();
             }
         });
         if (this.model.isNew()) {
