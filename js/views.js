@@ -75,17 +75,17 @@ window.cowListItemView = Backbone.View.extend({
 });
 window.cowView = Backbone.View.extend({
 
-    initialize: function() {
+    initialize: function () {
         this.render();
     },
-    render: function() {
+    render: function () {
         $(this.el).html(this.template(this.model.toJSON()));
         $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
         this.$(".datepicker").datepicker({
             //		    changeMonth: true,
             //            changeYear: true,
             dateFormat: 'yy-mm-dd',
-            onSelect: function(date) {
+            onSelect: function (date) {
                 var controlGroup = $(this).parent().parent();
                 controlGroup.removeClass('error');
                 controlGroup.find(".help-inline").remove();
@@ -100,10 +100,12 @@ window.cowView = Backbone.View.extend({
     events: {
         'keyup .data-field': 'updateModel',
         "click .save": "beforeSave",
-        "click .delete": "deletecow"
+        "click .delete": "deletecow",
+        "click .estrus": "estrus",
+        "click .inject": "inject"
     },
 
-    updateModel: function(event) {
+    updateModel: function (event) {
         var target = event.target;
         var change = {};
         change[target.name] = target.value.toString();
@@ -123,21 +125,21 @@ window.cowView = Backbone.View.extend({
         }
     },
 
-    valid: function() {
+    valid: function () {
         this.$('.alert').removeClass("alert-error alert-warning alert-success alert-info");
         this.$('.alert').addClass('alert-success');
         this.$('.alert').html('<strong>成功!</strong> ');
         this.$('.alert').fadeIn();
     },
 
-    invalid: function() {
+    invalid: function () {
         this.$('.alert').removeClass("alert-error alert-warning alert-success alert-info");
         this.$('.alert').addClass('alert-error');
         this.$('.alert').html('<strong>失敗!</strong> ');
         this.$('.alert').fadeIn();
     },
 
-    beforeSave: function() {
+    beforeSave: function () {
         var self = this;
         var check = this.model.validateAll();
         if (check.isValid) {
@@ -151,7 +153,7 @@ window.cowView = Backbone.View.extend({
                     if (controlGroup.find(".help-inline").length == 0)
                         controlGroup.find(".controls").append("<p class=\"help-inline error-message\"></p>");
                     controlGroup.find(".controls").find(".help-inline").text(check.messages[key]);
-                    
+
                 }
             }
             this.$('.alert-error').fadeIn();
@@ -159,10 +161,10 @@ window.cowView = Backbone.View.extend({
         return false;
     },
 
-    savecow: function() {
+    savecow: function () {
         var self = this;
         this.model.save(null, {
-            success: function(model) {
+            success: function (model) {
                 self.render();
                 app.navigate('cows/' + model.taxID, false);
                 $('.alert').removeClass("alert-error alert-warning alert-success alert-info");
@@ -170,7 +172,7 @@ window.cowView = Backbone.View.extend({
                 $('.alert').html('<strong>成功!</strong> ' + '乳牛資料儲存成功!!');
                 $('.alert').show();
             },
-            error: function() {
+            error: function () {
                 $('.alert').removeClass("alert-error alert-warning alert-success alert-info");
                 $('.alert').addClass('alert-error');
                 $('.alert').html('<strong>失敗!</strong> ' + '儲存過程發生錯誤!!');
@@ -179,9 +181,9 @@ window.cowView = Backbone.View.extend({
         });
     },
 
-    deletecow: function() {
+    deletecow: function () {
         this.model.destroy({
-            success: function() {
+            success: function () {
                 $('.alert').removeClass("alert-error alert-warning alert-success alert-info");
                 $('.alert').addClass('alert-success');
                 $('.alert').html('<strong>成功!</strong> ' + '乳牛資料刪除成功!!');
@@ -190,6 +192,17 @@ window.cowView = Backbone.View.extend({
             }
         });
         return false;
+    },
+
+    estrus: function () { 
+        //開啟視窗
+        //新增一筆異動紀錄
+        //更新狀態
+        //按鈕變更
+    },
+
+    inject: function(){
+        
     }
 });
 window.recordListView = Backbone.View.extend({
