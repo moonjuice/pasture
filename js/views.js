@@ -117,7 +117,7 @@ window.cowView = Backbone.View.extend({
         } else {
             var controlGroup = $('#' + target.id).parent().parent();
             controlGroup.removeClass('error');
-            controlGroup.find(".help-inline error-message").remove();
+            controlGroup.find(".help-inline").remove();
         }
     },
 
@@ -146,7 +146,10 @@ window.cowView = Backbone.View.extend({
                 if (check.messages.hasOwnProperty(key)) {
                     var controlGroup = $('#' + key).parent().parent();
                     controlGroup.addClass('error');
+                    if (controlGroup.find(".help-inline").length == 0)
+                        controlGroup.find(".controls").append("<p class=\"help-inline error-message\"></p>");
                     controlGroup.find(".controls").find(".help-inline").text(check.messages[key]);
+                    
                 }
             }
             this.$('.alert-error').fadeIn();
