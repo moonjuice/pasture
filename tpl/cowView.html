@@ -1,84 +1,104 @@
 <div class="row">
-	<form class="form-horizontal span12">
-		<fieldset>
-			<legend>乳牛明細</legend>
-			<br/>
-			<div class="row">
-				<div class="span9">
-					<div class="control-group">
-						<label for="taxID" class="control-label">統一編號:</label>
-						<div class="controls">
-							<input type="text" id="taxID" name="taxID" value="<%= taxID %>" readonly="readonly" class="data-field"/>
-						</div>
-					</div>
-					<div class="control-group">
-						<label for="earTag" class="control-label">場內號:</label>
-						<div class="controls">
-							<input type="text" id="earTag" name="earTag" value="<%= earTag %>" class="data-field" />
-						</div>
-					</div>
-					<div class="control-group">
-						<label for="fatherID" class="control-label">父親統一(精液)編號:</label>
-						<div class="controls">
-							<input type="text" id="fatherID" name="fatherID" value="<%= fatherID %>" class="data-field" />
-						</div>
-					</div>
-					<div class="control-group">
-						<label for="motherID" class="control-label">母親統一編號:</label>
-						<div class="controls">
-							<input type="text" id="motherID" name="motherID" value="<%= motherID %>" class="data-field" />
-						</div>
-					</div>
-					<div class="control-group">
-						<label for="birthDay" class="control-label">生日:</label>
-						<div class="controls">
-							<input type="text" id="birthDay" name="birthDay" value="<%= birthDay %>" class="datepicker data-field" />
-						</div>
-					</div>
-                    <!--
+    <form class="form-horizontal span12">
+    <fieldset>
+        <legend>乳牛明細</legend>
+        <br />
+        <div class="row">
+            <div class="span9">
+                <div class="control-group">
+                    <label for="taxID" class="control-label">
+                        統一編號:</label>
+                    <div class="controls">
+                        <input type="text" id="taxID" name="taxID" value="<%= taxID %>" readonly="readonly"
+                            class="data-field" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="earTag" class="control-label">
+                        場內號:</label>
+                    <div class="controls">
+                        <input type="text" id="earTag" name="earTag" value="<%= earTag %>" class="data-field" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="fatherID" class="control-label">
+                        父親統一(精液)編號:</label>
+                    <div class="controls">
+                        <input type="text" id="fatherID" name="fatherID" value="<%= fatherID %>" class="data-field" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="motherID" class="control-label">
+                        母親統一編號:</label>
+                    <div class="controls">
+                        <input type="text" id="motherID" name="motherID" value="<%= motherID %>" class="data-field" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="birthDay" class="control-label">
+                        生日:</label>
+                    <div class="controls">
+                        <input type="text" id="birthDay" name="birthDay" value="<%= birthDay %>" class="datepicker data-field" />
+                    </div>
+                </div>
+                <!--
 					<div class="control-group">
 						<label for="esDay" class="control-label">發情日:</label>
 						<div class="controls">
 							<input type="text" id="esDay" name="esDay" value="<%= esDay %>" class="datepicker data-field" />
 						</div>
 					</div>
-					<div class="control-group">
-						<label for="esStatus" class="control-label">發情:</label>
-						<div class="controls">
-							<input type="text" id="esStatus" name="esStatus" value="<%= esStatus %>" class="data-field" />
-						</div>
-					</div>
-                    -->
-					<div class="control-group">
-						<label for="remark" class="control-label">備註:</label>
-						<div class="controls">
-							<textarea id="remark" name="remark" cols=50 rows=5 class="data-field"><%= remark %></textarea>
-						</div>
-					</div>
-				</div>
-			</div>
-		</fieldset>
-        <div class="row status-bar">
-	        <div class="span12">
-		        <div class="alert alert-success" style="display: none">
-			        <b>Success!</b> cow saved successfully
-		        </div>
-	        </div>
+					-->
+                <div class="control-group">
+                    <label for="status" class="control-label">
+                        狀態:</label>
+                    <div class="controls">
+                        <input type="text" id="status" name="status" value="<%= status %>" class="data-field"
+                            readonly="readonly" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="remark" class="control-label">
+                        備註:</label>
+                    <div class="controls">
+                        <textarea id="remark" name="remark" cols="50" rows="5" class="data-field"><%= remark %></textarea>
+                    </div>
+                </div>
+            </div>
         </div>
-		<div class="form-actions">
-			<a href="#cows" class="btn"><i class="icon-arrow-left"></i>回到列表</a>
-			<a href="#" class="btn btn-primary save">儲存</a>
-            <a href="#" class="btn btn-primary estrus">發情</a>
-            <a href="#" class="btn btn-primary inject">注精</a>
-			<!--<a href="#" class="btn delete">刪除</a>-->
-		</div>
-	</form>
+    </fieldset>
+    <div class="row status-bar">
+        <div class="span12">
+            <div class="alert alert-success" style="display: none">
+                <b>Success!</b> cow saved successfully
+            </div>
+        </div>
+    </div>
+    </form>
+    <div class="well">
+        <a href="#cows" class="btn" style="margin-right:5px;"><i class="icon-arrow-left"></i>回到列表</a>  
+        <button class="btn btn-primary save" style="margin-right:5px;">儲存</button>  
+        <button class="btn btn-primary estrus" id="estrusButton" style="margin-right:5px;">開始發情</button>  
+        <button class="btn btn-primary inject" id="injectButton" style="margin-right:5px;">注精</button>  
+        <!--<a href="#" class="btn delete">刪除</a>-->
+    </div>
     <!-- 發情視窗 -->
     <div id="estrusDialog" title="發情狀態">
         <form>
         <fieldset>
-            <label for="remarkLabel">發情描述:</label>
-            <input type="text" name="RemarkText" id="RemarkText" class="text ui-widget-content ui-corner-all" />
+            <label for="EstrusRemarkText">
+                發情描述:</label>
+            <input type="text" name="EstrusRemarkText" id="EstrusRemarkText" class="text ui-widget-content ui-corner-all" />
+        </fieldset>
+        </form>
+    </div>
+    <!-- 注精視窗 -->
+    <div id="InjectDialog" title="注精">
+        <form>
+        <fieldset>
+            <label for="InjectText">
+                父親統一(精液)編號:</label>
+            <input type="text" name="InjectText" id="InjectText" class="text ui-widget-content ui-corner-all" />
         </fieldset>
         </form>
     </div>

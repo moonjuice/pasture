@@ -1,17 +1,17 @@
 <?php
 	require 'Slim/Slim.php';
 	$app = new Slim();
-$app->get('/cows', 'getcows');
-$app->post('/cows', 'addcow');
-$app->get('/cows/:taxID',	'getcow');
-$app->get('/cows/search/:query', 'findByTaxID');
-$app->put('/cows/:taxID', 'updatecow');
-$app->delete('/cows/:taxID',	'deletecow');
-$app->get('/records', 'getrecords');
-$app->post('/records', 'addrecord');
-$app->get('/records/:rid',	'getrecord');
-$app->put('/records/:rid', 'updaterecord');
-$app->delete('/records/:rid',	'deleterecord');
+	$app->get('/cows', 'getcows');
+	$app->post('/cows', 'addcow');
+	$app->get('/cows/:taxID',	'getcow');
+	$app->get('/cows/search/:query', 'findByTaxID');
+	$app->put('/cows/:taxID', 'updatecow');
+	$app->delete('/cows/:taxID',	'deletecow');
+	$app->get('/records', 'getrecords');
+	$app->post('/records', 'addrecord');
+	$app->get('/records/:rid',	'getrecord');
+	$app->put('/records/:rid', 'updaterecord');
+	$app->delete('/records/:rid',	'deleterecord');
 	$app->run();
 	//get List
 	function getcows(){
@@ -31,7 +31,7 @@ $app->delete('/records/:rid',	'deleterecord');
 		error_log('addcow\n', 3, '/var/tmp/php.log');
 		$request = Slim::getInstance()->request();
 		$cow = json_decode($request->getBody());
-		$sql = "INSERT INTO cow ( taxID, earTag, fatherID, motherID, birthDay, esDay, esStatus, remark) VALUES ( :taxID, :earTag, :fatherID, :motherID, :birthDay, :esDay, :esStatus, :remark)";
+		$sql = "INSERT INTO cow ( taxID, earTag, fatherID, motherID, birthDay, esDay, status, remark) VALUES ( :taxID, :earTag, :fatherID, :motherID, :birthDay, :esDay, :status, :remark)";
 		try {
 			$db = getConnection();
 			$stmt = $db->prepare($sql);  
@@ -41,7 +41,7 @@ $app->delete('/records/:rid',	'deleterecord');
 			$stmt->bindParam("motherID", $cow->motherID);
 			$stmt->bindParam("birthDay", $cow->birthDay);
 			$stmt->bindParam("esDay", $cow->esDay);
-			$stmt->bindParam("esStatus", $cow->esStatus);
+			$stmt->bindParam("status", $cow->status);
 			$stmt->bindParam("remark", $cow->remark);
 			$stmt->execute();
 			$db = null;
@@ -71,7 +71,7 @@ $app->delete('/records/:rid',	'deleterecord');
 		$request = Slim::getInstance()->request();
 		$body = $request->getBody();
 		$cow = json_decode($body);
-		$sql = "UPDATE cow SET  taxID=:taxID, earTag=:earTag, fatherID=:fatherID, motherID=:motherID, birthDay=:birthDay, esDay=:esDay, esStatus=:esStatus, remark=:remark WHERE  taxID=:taxID ";
+		$sql = "UPDATE cow SET  taxID=:taxID, earTag=:earTag, fatherID=:fatherID, motherID=:motherID, birthDay=:birthDay, esDay=:esDay, status=:status, remark=:remark WHERE  taxID=:taxID ";
 		try {
 			$db = getConnection();
 			$stmt = $db->prepare($sql);  
@@ -81,7 +81,7 @@ $app->delete('/records/:rid',	'deleterecord');
 			$stmt->bindParam("motherID", $cow->motherID);
 			$stmt->bindParam("birthDay", $cow->birthDay);
 			$stmt->bindParam("esDay", $cow->esDay);
-			$stmt->bindParam("esStatus", $cow->esStatus);
+			$stmt->bindParam("status", $cow->status);
 			$stmt->bindParam("remark", $cow->remark);
 			$stmt->execute();
 			$db = null;
@@ -134,16 +134,20 @@ $app->delete('/records/:rid',	'deleterecord');
 	//add
 	function addrecord(){
 		error_log('addrecord\n', 3, '/var/tmp/php.log');
+		date_default_timezone_set('Asia/Taipei');
 		$request = Slim::getInstance()->request();
 		$record = json_decode($request->getBody());
-		$sql = "INSERT INTO record ( rid, cid, content, createdate) VALUES ( :rid, :cid, :content, :createdate)";
+		//rid 改成由資料庫自動編號
+		//$sql = "INSERT INTO record ( rid, cid, content, createdate) VALUES ( :rid, :cid, :content, :createdate)";
+		$sql = "INSERT INTO record ( cid, content, createdate) VALUES ( :cid, :content, :createdate)";
 		try {
 			$db = getConnection();
-			$stmt = $db->prepare($sql);  
-			$stmt->bindParam("rid", $record->rid);
+			$stmt = $db->prepare($sql);
+			$createdate = date("Y-m-d H:i:s");
+			//$stmt->bindParam("rid", $record->rid);
 			$stmt->bindParam("cid", $record->cid);
 			$stmt->bindParam("content", $record->content);
-			$stmt->bindParam("createdate", $record->createdate);
+			$stmt->bindParam("createdate", $createdate);
 			$stmt->execute();
 			$db = null;
 			echo json_encode($record); 

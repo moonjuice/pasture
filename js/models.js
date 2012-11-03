@@ -88,7 +88,7 @@ window.cowModel = Backbone.Model.extend({
 	        else
 	            return { isValid: false, message: msg };
 	    };
-	    this.validators.esStatus = function (value) {
+	    this.validators.status = function (value) {
 	        var flag = true;
 	        var msg = '';
 	        if (value != null && value.length > 1) {
@@ -137,7 +137,7 @@ window.cowModel = Backbone.Model.extend({
 	    motherID: '',
 	    birthDay: '',
 	    esDay: '',
-	    esStatus: 'N',
+	    status: '0',
 	    remark: ''
 	}
 });
@@ -157,14 +157,14 @@ window.recordModel = Backbone.Model.extend({
 	this.validators.rid = function (value) {
 		var flag = true;
 		var msg = '';
-		if (value==null || value.length<=0){
-			flag = false;
-			msg='請輸入序號!!';
-		}
-		else if (value!=null && value.length>10){
-			flag = false;
-			msg='最多10個字!!';
-		}
+//		if (value==null || value.length<=0){
+//			flag = false;
+//			msg='請輸入序號!!';
+//		}
+//		else if (value!=null && value.length>10){
+//			flag = false;
+//			msg='最多10個字!!';
+//		}
 		if (flag)
 			return {isValid: true};
 		else
@@ -173,10 +173,10 @@ window.recordModel = Backbone.Model.extend({
 	this.validators.cid = function (value) {
 		var flag = true;
 		var msg = '';
-		if (value!=null && value.length>10){
-			flag = false;
-			msg='最多10個字!!';
-		}
+//		if (value!=null && value.length>10){
+//			flag = false;
+//			msg='最多10個字!!';
+//		}
 		if (flag)
 			return {isValid: true};
 		else
@@ -185,10 +185,10 @@ window.recordModel = Backbone.Model.extend({
 	this.validators.content = function (value) {
 		var flag = true;
 		var msg = '';
-		if (value!=null && value.length>21845){
-			flag = false;
-			msg='最多21845個字!!';
-		}
+//		if (value!=null && value.length>21845){
+//			flag = false;
+//			msg='最多21845個字!!';
+//		}
 		if (flag)
 			return {isValid: true};
 		else
@@ -197,14 +197,14 @@ window.recordModel = Backbone.Model.extend({
 	this.validators.createdate = function (value) {
 		var flag = true;
 		var msg = '';
-		if (value!=null && !(/[1-2][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]/.test(value))){
-			flag = false;
-			msg='日期格式不正確!!(應該為西元年-月-日)';
-		}
-		else if (value!=null && value.length>19){
-			flag = false;
-			msg='最多19個字!!';
-		}
+//		if (value!=null && !(/[1-2][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]/.test(value))){
+//			flag = false;
+//			msg='日期格式不正確!!(應該為西元年-月-日)';
+//		}
+//		else if (value!=null && value.length>19){
+//			flag = false;
+//			msg='最多19個字!!';
+//		}
 		if (flag)
 			return {isValid: true};
 		else

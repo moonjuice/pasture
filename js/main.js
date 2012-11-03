@@ -1,3 +1,4 @@
+var PageCnt = 10;
 var AppRouter = Backbone.Router.extend({
 
 	routes: {
@@ -6,10 +7,6 @@ var AppRouter = Backbone.Router.extend({
 		"cows/page/:page"	: "cowList",
 		"cows/add"         : "addcow",
 		"cows/:taxID"         : "cowDetail",
-		"records"	: "recordList",
-		"records/page/:page"	: "recordList",
-		"records/add"         : "addrecord",
-		"records/:rid"         : "recordDetail",
 		"about"             : "about"
 	},
 
@@ -41,29 +38,6 @@ var AppRouter = Backbone.Router.extend({
 		this.headerView.selectMenuItem('cow-menu');
 	},
 
-	recordList: function(page) {
-		var p = page ? parseInt(page, 10) : 1;
-		var recordList = new recordCollection();
-		recordList.fetch({success: function(){
-			$("#content").html(new recordListView({model: recordList, page: p}).el);
-		}});
-		this.headerView.selectMenuItem('record-menu');
-	},
-
-	recordDetail: function ( rid) {
-		var record = new recordModel({id : rid.toString()});
-		record.fetch({success: function(){
-			$("#content").html(new recordView({model: record}).el);
-		}});
-		this.headerView.selectMenuItem();
-	},
-
-	addrecord: function() {
-		var record = new recordModel();
-		$("#content").html(new recordView({model: record}).el);
-		this.headerView.selectMenuItem('record-menu');
-	},
-
 	about: function () {
 		if (!this.aboutView) {
 			this.aboutView = new AboutView();
@@ -74,7 +48,7 @@ var AppRouter = Backbone.Router.extend({
 });
 
 var deferreds = [];
-var views = ['HeaderView', 'cowView', 'cowListItemView', 'recordView', 'recordListItemView', 'AboutView'];
+var views = ['HeaderView', 'cowView', 'cowListItemView', 'AboutView'];
 $.each(views, function(index, view) {
 	if (window[view]) {
 		deferreds.push($.get('tpl/' + view + '.html', function(data) {
@@ -95,7 +69,7 @@ window.Paginator = Backbone.View.extend({
 	render:function () {
 		var items = this.model.models;
 		var len = items.length;
-		var pageCount = Math.ceil(len / 8);
+		var pageCount = Math.ceil(len / PageCnt);
 		$(this.el).html('<ul />');
 		for (var i=0; i < pageCount; i++) {
 			$('ul', this.el).append("<li" + ((i + 1) === this.options.page ? " class='active'" : "") + "><a href='#" + this.options.modelName + "s/page/"+(i+1)+"'>" + (i+1) + "</a></li>");
